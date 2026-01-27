@@ -43,7 +43,7 @@ You will now get to run your code on real GPUs using NVIDIA's Brev Platform. Don
 > Take budget into consideration when selecting a GPU to run your code on. We know it's tempting to select a B300, but selecting more expensive options will burn through your credits significantly faster.
 
 ## Resources
-### Getting Started with CUDA-Q.    
+### CUDA-Q    
 
 * If you are new to quantum computing, (e.g., you'd like a review of the definition of a qubit, quantum gates, and quantum circuits), then run through the first two notebooks of the [Quick Start to Quantum Computing](https://github.com/NVIDIA/cuda-q-academic/tree/main/quick-start-to-quantum) series.
 
@@ -51,11 +51,11 @@ You will now get to run your code on real GPUs using NVIDIA's Brev Platform. Don
 
 * If you prefer to learn by watching, you can check out [minutes 30:40-38:28 of this demo](https://www.nvidia.com/en-us/on-demand/session/gtcdc25-dct51159/?playlistId=gtcdc25-quantum-computing-and-hpc&start=1840&end=2308) of description of cudaq kernels, sampling, and getting the state vector or watch [minutes 9:20-19:00 of this demo](https://www.youtube.com/live/DqPC-nlcXKA?si=ualhUnFYjW9BlbQz&t=560).
 
-###
-qbraid instructions
+### qbraid 
 
-###
-Brev instructions
+### Brev 
+
+### Quantum computing in general
 
 ## Accessing Material Post Challenge
 
