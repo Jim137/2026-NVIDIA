@@ -59,7 +59,7 @@
 
 ### Hardware Targets
 * **Dev Environment:** Qbraid (CPU) for logic, Brev L4 for initial GPU testing.
-* **Production Environment:**  nodes with 4x H100-80GB GPUs per node for final N=38 benchmarks.
+* **Production Environment:**  4 nodes with 8x H100-80GB GPUs per node for final N=38 benchmarks.
 
 ---
 
