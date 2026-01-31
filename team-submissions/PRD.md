@@ -151,4 +151,4 @@ To validate both the physical fidelity of the LABS objective and the correctness
 
 * **Plan:** [How will you avoid burning all your credits?]
     * *Example:* "We will develop entirely on Qbraid (CPU) until the unit tests pass. We will then spin up a cheap L4 instance on Brev for porting. We will only spin up the expensive A100 instance for the final 2 hours of benchmarking."
-    * *Example:* "The GPU Acceleration PIC is responsible for manually shutting down the Brev instance whenever the team takes a meal break."
+    * The GPU Acceleration PIC is responsible for manually shutting down the Brev instance whenever the team takes a break.
