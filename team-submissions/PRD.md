@@ -12,8 +12,8 @@
 | :--- | :--- | :--- | :--- |
 | **Project Lead** (Architect) | [Jiun-Cheng Jiang] | [Jim137] | [mrjiang] |
 | **GPU Acceleration PIC** (Builder) | [Name] | [@handle] | [@handle] |
+| **GPU Acceleration PIC** (Builder) | [Name] | [@handle] | [@handle] |
 | **Quality Assurance PIC** (Verifier) | [YuChao,Hsu] | [Astor-Hsu] | [Yuchao0520] |
-| **Technical Marketing PIC** (Storyteller) | [Name] | [@handle] | [@handle] |
 | **Technical Marketing PIC** (Storyteller) | [Yi-Kai Lee] | [leon53660713] | [asdtaiwan] |
 
 ---
