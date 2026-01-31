@@ -62,7 +62,6 @@
 ### Unit Testing Strategy
 * **Framework:** [ruff, mypy]
 
-### Core Correctness Checks
 ### Physical and Algorithmic Correctness Checks
 
 To validate both the physical fidelity of the LABS objective and the correctness of the accelerated evaluation pipeline, we design a collection of deterministic and symmetry-aware validation tests. These checks jointly verify analytical correctness, invariance properties, and algorithmic sanity across classical and quantum components.
