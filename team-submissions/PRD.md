@@ -76,9 +76,9 @@ To validate both the physical fidelity of the LABS objective and the correctness
   * **Test:**  
     For any sampled spin sequence $S$, its inverted configuration $-S$ must yield the same energy.
   * **Assertion:**  
-    $
+    \[
     E(S) = E(-S).
-    $
+    \]
   * **Implementation:**  
     We explicitly evaluate both configurations and enforce
     ```python
@@ -94,7 +94,7 @@ To validate both the physical fidelity of the LABS objective and the correctness
     E([1,1,1]) = 5,\quad
     E([1,1,-1]) = 1,\quad
     E([1,-1,1]) = 5.
-    \[
+    \]
   * **Assertion:**  
     The evaluation kernel must reproduce these exact values without numerical deviation.
   * **Implementation:**  
@@ -114,13 +114,15 @@ To validate both the physical fidelity of the LABS objective and the correctness
   * **Test:**  
     For any sequence $S$, its reversed sequence $S^{\mathrm{rev}}$ must yield the same energy.
   * **Assertion:**  
-  
-    $E(S) = E(S^{\mathrm{rev}}).$
+    \[
+    E(S) = E(S^{\mathrm{rev}}).
+    \]
   * **Implementation:**  
     Random sequences are reversed and validated via
     ```python
     assert energy(S) == energy(S[::-1])
     ```
+
 
 
 
