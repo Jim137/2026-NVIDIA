@@ -55,8 +55,7 @@
  
 
 ### Classical Acceleration (MTS)
-* **Strategy:** 
-    *The standard MTS evaluates neighbors one by one. We will use `cupy` to rewrite the energy function to evaluate a batch of 1,000,000 neighbor flips simultaneously on the GPU.
+  * The standard MTS evaluates neighbors one by one. We will use `cupy` to rewrite the energy function to evaluate a batch of 1,000,000 neighbor flips simultaneously on the GPU.
 
 ### Hardware Targets
 * **Dev Environment:** Qbraid (CPU) for logic, Brev L4 for initial GPU testing.
