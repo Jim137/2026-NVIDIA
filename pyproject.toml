@@ -23,6 +23,7 @@ dependencies = [
   "lightning",
   "ml_collections",
   "mpi4py",
+  "cudaq-solvers[gqe]",
 ]
 
 [project.urls]
