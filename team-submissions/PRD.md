@@ -95,7 +95,7 @@ To validate both the physical fidelity of the LABS objective and the correctness
   * **Test:**  
     For $N=3$, the energies of representative sequences are known:
       
-      E([1,1,1]) = 5,E([1,1,-1]) = 1,E([1,-1,1]) = 5
+      E([1,1,1]) = 5,E([1,1,-1]) = 1,E([1,-1,1]) = 5.
       
   * **Assertion:**  
     The evaluation kernel must reproduce these exact values without numerical deviation.
