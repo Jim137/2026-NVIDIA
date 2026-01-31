@@ -14,7 +14,7 @@
 | :--- | :--- | :--- | :--- |
 | **Project Lead** (Architect) | Jiun-Cheng Jiang | Jim137 | mrjiang |
 | **GPU Acceleration PIC1** (Builder) | [Name] | [@handle] | [@handle] |
-| **GPU Acceleration PIC2** (Builder) | [Name] | [@handle] | [@handle] |
+| **GPU Acceleration PIC2** (Builder) | [Chun-Hua Lin] | [Kanadedaisuki] | [howardnbsm] |
 | **Quality Assurance PIC** (Verifier) | YuChao Hsu | Astor-Hsu | Yuchao0520 |
 | **Technical Marketing PIC** (Storyteller) | Yi-Kai Lee | leon53660713 | asdtaiwan |
 
@@ -55,12 +55,12 @@
  
 
 ### Classical Acceleration (MTS)
-* **Strategy:** [The classical search has many opportuntities for GPU acceleration. What will you chose to do?]
-    * *Example:* "The standard MTS evaluates neighbors one by one. We will use `cupy` to rewrite the energy function to evaluate a batch of 1,000 neighbor flips simultaneously on the GPU."
+* **Strategy:** 
+    *The standard MTS evaluates neighbors one by one. We will use `cupy` to rewrite the energy function to evaluate a batch of 1,000,000 neighbor flips simultaneously on the GPU.
 
 ### Hardware Targets
-* **Dev Environment:** [e.g., Qbraid (CPU) for logic, Brev L4 for initial GPU testing]
-* **Production Environment:** [e.g., Brev A100-80GB for final N=50 benchmarks]
+* **Dev Environment:** Qbraid (CPU) for logic, Brev L4 for initial GPU testing
+* **Production Environment:** 8 nodes with 8x H100-80GB GPUs per node for final N=38 benchmarks
 
 ---
 
