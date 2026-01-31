@@ -114,9 +114,8 @@ To validate both the physical fidelity of the LABS objective and the correctness
   * **Test:**  
     For any sequence $S$, its reversed sequence $S^{\mathrm{rev}}$ must yield the same energy.
   * **Assertion:**  
-    \[
-    E(S) = E(S^{\mathrm{rev}}).
-    \]
+  
+    $E(S) = E(S^{\mathrm{rev}}).$
   * **Implementation:**  
     Random sequences are reversed and validated via
     ```python
