@@ -51,7 +51,7 @@
 
 ### Quantum Acceleration (CUDA-Q)
 * **Strategy:** [How will you use the GPU for the quantum part?]
-    * *Example:* "After testing with a single L4, we will target the `nvidia-mgpu` backend to distribute the circuit simulation across multiple L4s for large $N$."
+    * We will first synthesize the quantum circuit with CUDA-Q, then convert it to a tensor network to leverage multi-GPU acceleration, speeding up the training process of the GQE framework.
  
 
 ### Classical Acceleration (MTS)
