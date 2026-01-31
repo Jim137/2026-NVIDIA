@@ -1,7 +1,7 @@
 # Product Requirements Document (PRD)
 
 **Project Name:** [e.g., LABS-Solv-V1]
-**Team Name:** [QQQ]
+**Team Name:** [e.g., QuantumVibes]
 **GitHub Repository:** [Insert Link Here]
 
 ---
