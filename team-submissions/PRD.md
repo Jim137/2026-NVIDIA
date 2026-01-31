@@ -1,8 +1,10 @@
 # Product Requirements Document (PRD)
 
-**Project Name:** [GQE-MTS]
-**Team Name:** [QQQ]
-**GitHub Repository:** [https://github.com/Jim137/2026-NVIDIA]
+**Project Name:** Quantum-enhanced Generative Quantum Eigensolver with Tensor Networks and Multi-Trajectory Search for LABS Problem
+
+**Team Name:** QQQ
+
+**GitHub Repository:** https://github.com/Jim137/2026-NVIDIA
 
 ---
 
@@ -22,19 +24,25 @@
 **Owner:** Project Lead
 
 ### Choice of Quantum Algorithm
-* **Algorithm:** [Identify the specific algorithm or ansatz]
-    * *Example:* "Quantum Approximate Optimization Algorithm (QAOA) with a hardware-efficient ansatz."
-    * *Example:* "Variational Quantum Eigensolver (VQE) using a custom warm-start initialization."
+* **Algorithm:**
+    * Generative Quantum Eigensolver (GQE) combined with Multi-Trajectory Search (MTS).
+    * Using tensor network (TN) methods to efficiently simulate quantum circuits within energy evaluations.
+    * Incorporating Quantum-inspired Kolmogorov-Arnold Networks (QKAN) as part of the transformer model, making it as QKANsformer to enhance the GQE framework.
 
-* **Motivation:** [Why this algorithm? Connect it to the problem structure or learning goals.]
-    * *Example (Metric-driven):* "We chose QAOA because we believe the layer depth corresponds well to the correlation length of the LABS sequences."
-    *  Example (Skills-driven):* "We selected VQE to maximize skill transfer. Our senior members want to test a novel 'warm-start' adaptation, while the standard implementation provides an accessible ramp-up for our members new to quantum variational methods."
+* **Motivation:**
+    * The GQE-MTS hybrid algorithm is selected to leverage the strengths of both quantum and classical optimization techniques for solving the LABS problem. The GQE component allows us to generate low-energy candidate solutions using quantum circuits, while the MTS component efficiently explores the solution space classically.
+    * The integration of tensor network methods aims to optimize the simulation of quantum circuits, making it feasible to handle larger problem sizes. 
+    * QKANsformer is empirically shown to have better expressivity, less computational resource requirements, and improved training efficiency compared to classical transformer models, which can enhance the performance of the GQE framework.
    
 
 ### Literature Review
-* **Reference:** [Title, Author, Link]
-* **Relevance:** [How does this paper support your plan?]
-    * *Example:* "Reference: 'QAOA for MaxCut.' Relevance: Although LABS is different from MaxCut, this paper demonstrates how parameter concentration can speed up optimization, which we hope to replicate."
+
+* The generative quantum eigensolver (GQE) and its application for ground state search, Nakaji et al., https://arxiv.org/abs/2401.09253
+    * This paper introduces the GQE algorithm, which combines quantum circuit-based state generation with classical optimization techniques. It is relevant to our project as it provides a framework for leveraging quantum resources to find low-energy configurations in combinatorial optimization problems like LABS. The insights from this paper will guide our implementation of the quantum component of our hybrid algorithm.
+* Validating Large-Scale Quantum Machine Learning: Efficient Simulation of Quantum Support Vector Machines Using Tensor Networks, Chen et al., https://arxiv.org/abs/2405.02630
+    * This paper discusses efficient simulation techniques for quantum machine learning algorithms, specifically quantum support vector machines (QSVMs). The relevance to our project lies in the potential application of tensor network methods to optimize the classical-quantum hybrid approach we are adopting. The techniques outlined in this paper may help us improve the efficiency of our classical optimization routines when integrated with quantum state generation.
+* Quantum Variational Activation Functions Empower Kolmogorov-Arnold Networks, Jiang et al., https://arxiv.org/abs/2509.14026
+    * This paper explores the use of quantum variational activation functions within neural network architectures, specifically Kolmogorov-Arnold networks. The relevance to our project is in the potential for using QKAN in transformer models to enhance the GQE framework. The insights from this paper will inform our approach to integrating quantum components into classical machine learning models for improved performance in solving the LABS problem.
 
 ---
 
