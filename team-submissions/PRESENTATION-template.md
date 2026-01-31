@@ -1,7 +1,7 @@
-ou must produce a cohesive story of your project.
+Your team must produce a cohesive story of your project.
 
 * **If In-Person:** A live 5-10 minute presentation to the judges.
-* **If Remote:** A 5-10 minute voice-over slide deck (MP4 format) included in your final submission.
+* **If Remote:** A 5-10 minute voice-over slide deck (MP4 format) included in your github repository.
 
 **Example Presentation Agenda:**
 
