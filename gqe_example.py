@@ -1,7 +1,7 @@
 # GQE is an optional component of the CUDA-QX Solvers Library. To install its
 # dependencies, run:
-# pip install cudaq-solvers[gqe]
-#
+# pip install -e .
+
 # Run this script with
 # python3 gqe_h2.py
 #
