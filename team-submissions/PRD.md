@@ -13,7 +13,7 @@
 | Role | Name | GitHub Handle | Discord Handle
 | :--- | :--- | :--- | :--- |
 | **Project Lead** (Architect) | Jiun-Cheng Jiang | Jim137 | mrjiang |
-| **GPU Acceleration PIC1** (Builder) | [Name] | [@handle] | [@handle] |
+| **GPU Acceleration PIC1** (Builder) | Kuo-Chung Peng | MatthewPeng57 | player256_27165 |
 | **GPU Acceleration PIC2** (Builder) | Chun-Hua Lin | Kanadedaisuki | howardnbsm |
 | **Quality Assurance PIC** (Verifier) | YuChao Hsu | Astor-Hsu | Yuchao0520 |
 | **Technical Marketing PIC** (Storyteller) | Yi-Kai Lee | leon53660713 | asdtaiwan |
