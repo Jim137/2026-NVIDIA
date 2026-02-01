@@ -14,6 +14,8 @@ from cudaq import spin
 from lightning.fabric.loggers import CSVLogger
 from src.GQEMTS.gqe import get_default_config
 
+from cudaq_mlir_parser import parse, simulate
+
 from collections import Counter
 
 # ==========================================
@@ -86,7 +88,7 @@ def labs_spin_op(N: int):
     return H
 
 # Initialize problem parameters
-N = 20
+N = 25
 spin_ham = labs_spin_op(N)
 n_qubits = N
 
@@ -154,10 +156,10 @@ def kernel(coeffs: list[float], words: list[cudaq.pauli_word]):
     Quantum Kernel for energy estimation.
     Applies Hadamard gates followed by the parameterized Pauli exponentials.
     """
-    q = cudaq.qvector(n_qubits)
+    q = cudaq.qvector(25)
 
     # Start from superposition state |+>^N
-    for i in range(n_qubits):
+    for i in range(25):
         h(q[i])
 
     # Apply parameterized ansatz
@@ -240,6 +242,8 @@ cfg.fabric_logger = logger
 cfg.save_trajectory = False
 cfg.verbose = True
 
+
+initial_time=time.time()
 # Run the GQE solver
 minE, best_ops = solvers.gqe(cost, op_pool, max_iters=5, ngates=3, config=cfg)
 
@@ -309,20 +313,38 @@ if not args.mpi or cudaq.mpi.rank() == 0:
 
     # Process sample results
 
-    counts = Counter(dict(samples.items()))
+    circuit = parse(kernel)
+    print("  qubits =", circuit.num_qubits)
+    print("  gates  =", len(circuit.gates))
+    state = simulate(circuit)
+    probs = np.abs(state) ** 2
+
+    energies = []
+    bitsrings= []
+    for i, p in enumerate(probs):
+        if p < 1e-6:
+            continue
+        bit = [int(c) for c in f"{i:0{n_qubits}b}"]
+        energies.append(labs_energy(bit))
+        bitsrings.append(bit)
+    gpu_population = cp.asarray(bitsrings, dtype=cp.int8)
 
     MTS_N_AGENTS=100
 
-    print(f"{MTS_N_AGENTS} most frequent bitstrings:")
-    print(counts.most_common(MTS_N_AGENTS))
+    # counts = Counter(dict(samples.items()))
 
-    # Calculate exact classical energies for the sampled bitstrings
-    sample_energies = [labs_energy([int(c) for c in b]) for b in counts.keys()]
-    print("Minimum sampled LABS energy:", min(sample_energies))
+    # MTS_N_AGENTS=100
 
-    initial_population = get_mts_population(counts, MTS_N_AGENTS, n_qubits)
+    # print(f"{MTS_N_AGENTS} most frequent bitstrings:")
+    # print(counts.most_common(MTS_N_AGENTS))
 
-    gpu_population = cp.asarray(initial_population, dtype=cp.int8)
+    # # Calculate exact classical energies for the sampled bitstrings
+    # sample_energies = [labs_energy([int(c) for c in b]) for b in counts.keys()]
+    # print("Minimum sampled LABS energy:", min(sample_energies))
+
+    # initial_population = get_mts_population(counts, MTS_N_AGENTS, n_qubits)
+
+    # gpu_population = cp.asarray(initial_population, dtype=cp.int8)
     # print("Initial population for MTS (on GPU):")
     # print(gpu_population)
 
@@ -492,6 +514,10 @@ class LabsMTS_GPU_Opt:
             # 4. Update Global Best Solution
             current_best_idx = cp.argmin(energies)
             current_min_energy = energies[current_best_idx]
+            if current_min_energy ==36:
+                final_time = time.time() - initial_time
+                print("final time:", final_time)
+
 
             # Trigger CPU-GPU synchronization only when updating best to keep logs
             if current_min_energy < global_best_energy:
@@ -525,4 +551,8 @@ if __name__ == "__main__":
     mts_opt = LabsMTS_GPU_Opt(n_qubits, MTS_N_AGENTS, MAX_ITER)
     best_sol, best_energy, final_energies, history = mts_opt.run()
 
+    
+
     print(f"Final Best Energy: {best_energy}")
+
+    print(f"Total time including GQE and MTS: {final_time:.2f} seconds.")
