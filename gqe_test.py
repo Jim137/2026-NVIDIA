@@ -44,7 +44,7 @@ from cudaq import spin
 from lightning.fabric.loggers import CSVLogger
 
 from src.GQEMTS.gqe import get_default_config
-
+from src.GQEMTS import gqe
 os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
 torch.manual_seed(3047)
 torch.use_deterministic_algorithms(True)
@@ -179,7 +179,7 @@ cfg.save_trajectory = False
 cfg.verbose = True
 
 # Run GQE
-minE, best_ops = src.GQEMTS.gqe(cost, op_pool, max_iters=5, ngates=3, config=cfg)
+minE, best_ops = gqe(cost, op_pool, max_iters=5, ngates=3, config=cfg)
 
 # Only print results from rank 0 when using MPI
 if not args.mpi or cudaq.mpi.rank() == 0:
