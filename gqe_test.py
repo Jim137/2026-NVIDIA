@@ -42,6 +42,8 @@ import cudaq_solvers as solvers
 import torch
 from cudaq import spin
 from lightning.fabric.loggers import CSVLogger
+from cudaq_mlir_parser import parse, simulate
+
 
 from src.GQEMTS.gqe import get_default_config
 
@@ -83,7 +85,7 @@ def labs_spin_op(N: int):
 
     return H
 
-N=12
+N=3
 spin_ham = labs_spin_op(N)
 n_qubits = N
 
@@ -257,7 +259,11 @@ if not args.mpi or cudaq.mpi.rank() == 0:
     # print("10 most frequent bitstrings:")
     # print(counts.most_common(10))
     shots = 1000
-
+    #add tn
+    circuit = parse(kernel, opt_coeffs, opt_words)
+    print("  qubits =", circuit.num_qubits)
+    print("  gates  =", len(circuit.gates))
+    state = simulate(circuit)
     # Use cudaq.sample to get multiple shots
     samples = cudaq.sample(sample_optimized, opt_coeffs, opt_words, shots_count=shots)
 
