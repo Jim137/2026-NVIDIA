@@ -39,5 +39,5 @@ No AI-generated code was accepted blindly; every modification was tested or revi
 All AI-generated or AI-assisted code was validated using a combination of **unit tests, physical invariants, and baseline cross-checks**.  
 The explicit goal was to catch AI hallucinations, incorrect assumptions, or silent logic errors.
 
-The following unit tests were implemented in `tests.py`:
+The following unit tests were implemented in `tests.py`.
 
