@@ -109,15 +109,15 @@ def pool(params, n_qubits):
     #     ops.append(cudaq.SpinOperator(spin.z(i) * spin.z(i+1) * spin.z(i+2) * spin.z(i+3)))
     # 2-qubit rotations
     for i in range(n_qubits):
-        ops.append(cudaq.SpinOperator(spin.y(i) * spin.z(j)))
-        ops.append(cudaq.SpinOperator(spin.z(i) * spin.y(j)))
+        ops.append(cudaq.SpinOperator(spin.y(i) * spin.z(i+1)))
+        ops.append(cudaq.SpinOperator(spin.z(i) * spin.y(i+1)))
 
     # 4-qubit rotations
     for i in range(n_qubits - 3):
-        ops.append(cudaq.SpinOperator(spin.y(i) * spin.z(i+t) * spin.z(i+k) * spin.z(i+k+t)))
-        ops.append(cudaq.SpinOperator(spin.z(i) * spin.y(i+t) * spin.z(i+k) * spin.z(i+k+t)))
-        ops.append(cudaq.SpinOperator(spin.z(i) * spin.z(i+t) * spin.y(i+k) * spin.z(i+k+t)))
-        ops.append(cudaq.SpinOperator(spin.z(i) * spin.z(i+t) * spin.z(i+k) * spin.y(i+k+t)))
+        ops.append(cudaq.SpinOperator(spin.y(i) * spin.z(i+1) * spin.z(i+2) * spin.z(i+3)))
+        ops.append(cudaq.SpinOperator(spin.z(i) * spin.y(i+1) * spin.z(i+2) * spin.z(i+3)))
+        ops.append(cudaq.SpinOperator(spin.z(i) * spin.z(i+1) * spin.y(i+2) * spin.z(i+3)))
+        ops.append(cudaq.SpinOperator(spin.z(i) * spin.z(i+1) * spin.z(i+2) * spin.y(i+3)))
     pool_ops = []
     
     
