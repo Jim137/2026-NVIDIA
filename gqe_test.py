@@ -38,7 +38,7 @@ else:
 # Disable this section for non-deterministic behavior
 import os
 
-import cudaq_solvers as solvers
+
 import torch
 from cudaq import spin
 from lightning.fabric.loggers import CSVLogger
