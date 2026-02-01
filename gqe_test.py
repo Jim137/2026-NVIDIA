@@ -31,8 +31,6 @@ if args.mpi:
 else:
     try:
         cudaq.set_target("nvidia", option="fp64")
-        # cudaq.set_target("qpp-cpu")
-        print("Running on CPU")
     except RuntimeError:
         cudaq.set_target("qpp-cpu")
 
