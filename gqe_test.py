@@ -261,7 +261,8 @@ if not args.mpi or cudaq.mpi.rank() == 0:
     samples = cudaq.sample(sample_optimized, opt_coeffs, opt_words, shots_count=shots)
 
     # samples is a list of lists of 0/1 outcomes
-    bitstrings = ["".join(map(str, s)) for s in samples]
+    # bitstrings = ["".join(map(str, s)) for s in samples]
+    bitstrings = ["".join(map(str, s.tolist())) for s in samples]
 
     from collections import Counter
     counts = Counter(bitstrings)
