@@ -83,7 +83,7 @@ def labs_spin_op(N: int):
 
     return H
 
-N=5
+N=12
 spin_ham = labs_spin_op(N)
 n_qubits = N
 
@@ -194,7 +194,8 @@ def sample_optimized(coeffs: list[float], words: list[cudaq.pauli_word]):
 
     # Apply the optimized evolution
     for i in range(len(coeffs)):
-        exp_pauli(coeffs[i], q, words[i], padding=n_qubits)
+        # exp_pauli(coeffs[i], q, words[i], padding=n_qubits)
+        exp_pauli(coeffs[i], q, words[i])
 
     # Measure all qubits in Z-basis
     # return [mz(qubit) for qubit in q]
@@ -203,12 +204,11 @@ def sample_optimized(coeffs: list[float], words: list[cudaq.pauli_word]):
         mz(qubit)
 
 def labs_energy(x):
-    # Convert 0/1 -> +1/-1
-    s = [1 if b==1 else -1 for b in x]
+    s = 2 * np.asarray(x) - 1
     N = len(s)
     E = 0
     for k in range(1, N):
-        Ck = sum(s[i] * s[i+k] for i in range(N - k))
+        Ck = np.sum(s[:N-k] * s[k:])
         E += Ck**2
     return E
 
@@ -261,16 +261,16 @@ if not args.mpi or cudaq.mpi.rank() == 0:
     # Use cudaq.sample to get multiple shots
     samples = cudaq.sample(sample_optimized, opt_coeffs, opt_words, shots_count=shots)
 
-    # samples is a list of lists of 0/1 outcomes
-    bitstrings = ["".join(map(str, s)) for s in samples]
-
-
+    # samples is a cudaq.SampleResult object (dict-like: bitstring -> count)
     from collections import Counter
-    counts = Counter(bitstrings)
+    # Convert SampleResult to a Counter directly
+    counts = Counter(dict(samples.items()))
+
     print("10 most frequent bitstrings:")
     print(counts.most_common(10))
 
-    sample_energies = [labs_energy(b) for b in bitstrings]
+    # Calculate energy for each unique bitstring found (converting string to list of ints)
+    sample_energies = [labs_energy([int(c) for c in b]) for b in counts.keys()]
     print("Minimum sampled LABS energy:", min(sample_energies))
 
 
@@ -281,6 +281,3 @@ if not args.mpi or cudaq.mpi.rank() == 0:
 
 if args.mpi:
     cudaq.mpi.finalize()
-
-
-
