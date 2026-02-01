@@ -266,7 +266,7 @@ if not args.mpi or cudaq.mpi.rank() == 0:
     shots = 1000
 
     # Use cudaq.sample to get multiple shots
-    samples = cudaq.sample(sample_optimized, opt_coeffs, opt_words, shots=shots)
+    samples = cudaq.sample(sample_optimized, opt_coeffs, opt_words, shots_count=shots)
 
     # samples is a list of lists of 0/1 outcomes
     bitstrings = ["".join(map(str, s)) for s in samples]
