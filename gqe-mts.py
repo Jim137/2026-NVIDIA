@@ -367,11 +367,15 @@ def main():
     print(f"=== Classical Refinement (MTS/Tabu) ===")
     tD0 = time.time()
 
-    bitstrings = list(samples.keys())
+    # bitstrings = list(samples.keys())
     if len(bitstrings) == 0:
         raise RuntimeError("cudaq.sample returned no bitstrings; cannot seed classical search.")
 
-    counts = np.array([int(samples[b]) for b in bitstrings], dtype=np.int64)
+    # SampleResult -> list of (bitstring, count)
+    pairs = list(samples.items())          # [('0101...', 123), ('1110...', 45), ...]
+    bitstrings = [bs for bs, _ in pairs]
+    counts = np.array([int(c) for _, c in pairs], dtype=np.int64)
+
     total = int(counts.sum()) if int(counts.sum()) > 0 else 1
     probs = counts.astype(np.float64) / float(total)
 
