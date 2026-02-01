@@ -183,6 +183,41 @@ def cost(sampled_ops: list[cudaq.SpinOperator], **kwargs):
         ).expectation()
 
 
+
+@cudaq.kernel
+def sample_optimized(coeffs: list[float], words: list[cudaq.pauli_word]):
+    q = cudaq.qvector(n_qubits)
+
+    # Start from |+>^N
+    for i in range(n_qubits):
+        h(q[i])
+
+    # Apply the optimized evolution
+    for i in range(len(coeffs)):
+        exp_pauli(coeffs[i], q, words[i], padding=n_qubits)
+
+    # Measure all qubits in Z-basis
+    return [measure(q[i]) for i in range(n_qubits)]
+
+def labs_energy(bitstring):
+    # Convert 0/1 -> +1/-1
+    s = [1 if b=="0" else -1 for b in bitstring]
+    E = 0
+    # 2-body terms
+    for i in range(N-2):
+        max_k = (N-i)//2
+        for k in range(1, max_k+1):
+            E += 2 * s[i] * s[i+k]
+    # 4-body terms
+    for i in range(N-3):
+        max_t = (N-i-1)//2
+        for t in range(1, max_t+1):
+            for k in range(t+1, N-i-t):
+                E += 4 * s[i]*s[i+t]*s[i+k]*s[i+k+t]
+    return E
+
+
+
 # Configure GQE
 cfg = get_default_config()
 cfg.use_fabric_logging = False
@@ -198,10 +233,44 @@ minE, best_ops = solvers.gqe(cost, op_pool, max_iters=5, ngates=3, config=cfg)
 if not args.mpi or cudaq.mpi.rank() == 0:
     print(f"Ground Energy = {minE}")
     print("Ansatz Ops")
+    opt_coeffs = []
+    opt_words = []
     for idx in best_ops:
         # Get the first (and only) term since these are simple operators
         term = next(iter(op_pool[idx]))
         print(term.evaluate_coefficient().real, term.get_pauli_word(n_qubits))
+        # Get the SpinOperator
+        op = op_pool[idx]
+
+        # Each SpinOperator may have multiple terms; here we take all
+        for term in op:
+            opt_coeffs.append(term.evaluate_coefficient().real)        # float
+            opt_words.append(term.get_pauli_word(n_qubits))            # cudaq.pauli_word
+            
+    shots = 1000
+    samples = []
+
+    for _ in range(shots):
+        samples.append(sample_optimized(opt_coeffs, opt_words))
+
+    # Convert to bitstrings
+    bitstrings = ["".join(map(str, s)) for s in samples]
+
+    from collections import Counter
+    counts = Counter(bitstrings)
+    print("10 most frequent bitstrings:")
+    print(counts.most_common(10))
+    sample_energies = [labs_energy(b) for b in bitstrings]
+    print("Minimum sampled LABS energy:", min(sample_energies))
+
+
+
+
+
+
 
 if args.mpi:
     cudaq.mpi.finalize()
+
+
+
