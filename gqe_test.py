@@ -197,7 +197,10 @@ def sample_optimized(coeffs: list[float], words: list[cudaq.pauli_word]):
         exp_pauli(coeffs[i], q, words[i], padding=n_qubits)
 
     # Measure all qubits in Z-basis
-    return [mz(qubit) for qubit in q]
+    # return [mz(qubit) for qubit in q]
+    # Measure all qubits in Z-basis
+    for qubit in q:
+        mz(qubit)
 
 def labs_energy(bitstring):
     # Convert 0/1 -> +1/-1
@@ -247,19 +250,32 @@ if not args.mpi or cudaq.mpi.rank() == 0:
             opt_coeffs.append(term.evaluate_coefficient().real)        # float
             opt_words.append(term.get_pauli_word(n_qubits))            # cudaq.pauli_word
             
+    # shots = 1000
+    # samples = []
+
+    # for _ in range(shots):
+    #     samples.append(sample_optimized(opt_coeffs, opt_words))
+
+    # # Convert to bitstrings
+    # bitstrings = ["".join(map(str, s)) for s in samples]
+
+    # from collections import Counter
+    # counts = Counter(bitstrings)
+    # print("10 most frequent bitstrings:")
+    # print(counts.most_common(10))
     shots = 1000
-    samples = []
 
-    for _ in range(shots):
-        samples.append(sample_optimized(opt_coeffs, opt_words))
+    # Use cudaq.sample to get multiple shots
+    samples = cudaq.sample(sample_optimized, opt_coeffs, opt_words, shots=shots)
 
-    # Convert to bitstrings
+    # samples is a list of lists of 0/1 outcomes
     bitstrings = ["".join(map(str, s)) for s in samples]
 
     from collections import Counter
     counts = Counter(bitstrings)
     print("10 most frequent bitstrings:")
     print(counts.most_common(10))
+
     sample_energies = [labs_energy(b) for b in bitstrings]
     print("Minimum sampled LABS energy:", min(sample_energies))
 
